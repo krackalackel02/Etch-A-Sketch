@@ -83,6 +83,15 @@ input[type="color"]::-webkit-color-swatch {
     animation: pulse-green 1s;
     transform: scale(1.2);
   }
+
+.options,.options * {
+    font-size: 1.1em;
+}
+h2{
+    text-decoration: underline;
+}
+  
+
   
 
 @media screen and (max-width: 800px) {
