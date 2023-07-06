@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Chewy&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<div ><h1 class="header">Etch-a-Sketch</h1></div>
+		<div class="container">
+			<div class="options">
+                <h2>Settings:</h2>
+                <input type="color" id="colour-picker">
+                <button class="btn"id="btn-colour-select">Colour Select</button>
+                <button class="btn"id="btn-rainbow">Random Rainbow</button>
+                <button class="btn"id="btn-eraser">Eraser</button>
+                <button class="btn"id="btn-clear">Clear</button>
+                <div><p id = grid-size>64x64</p><input type="range" id="grid-size-slider"></div>
+            </div>
+            <div id="canvas"></div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+</html>
