@@ -1,7 +1,8 @@
 body {
 	margin: 0;
 	font-family: "Chewy", cursive;
-    overflow-x: hidden;
+	overflow-x: hidden;
+	background-color: #e9e0d4;
 }
 
 .header {
@@ -19,18 +20,17 @@ body {
 	grid-gap: 0px;
 	margin: 0 auto;
 	width: 80vw;
-    height: auto;
-    aspect-ratio: 1;
+	height: auto;
+	aspect-ratio: 1;
 	max-width: 800px;
-    justify-content: center;
-    border: 2px solid black;
-    
+	justify-content: center;
+	border: 2px solid black;
 }
 
 .pixel {
 	background-color: black;
 	/* box-sizing: border-box; */
-    user-select: none;
+	user-select: none;
 }
 
 .container {
@@ -38,21 +38,81 @@ body {
 }
 .options {
 	display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 40px;
 }
 
+.options *:not(h2) {
+	margin: 5px 0;
+	font-family: "Chewy", cursive;
+    width: 150px;
+}
+.options *:not(h2,div,p):hover {
+	cursor: pointer;
+    scale: 1.05;
+    transition: scale 0.1s ease-in;
+}
+.options div{
+    height: auto;
+}
+
+#colour-picker {
+	height: auto;
+	width: 100px;
+	aspect-ratio: 1;
+}
+
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	background-color: transparent;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border-radius: 20px;
+	border: none;
+}
 
 @media screen and (max-width: 800px) {
-    .container{
-        flex-direction: column;
+	.container {
+		flex-direction: column;
+	}
+	#canvas {
+		order: 1;
+	}
+	.options {
+		order: 2;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+	}
+    .options h2{
+        grid-column: 1/-1;
     }
-    #canvas{
-        order: 1;
+    .options *:not(h2) {
+        margin: 10px 0;
+        width: 150px;
     }
-    .options{
-        order: 2;
+    #colour-picker {
+        margin: 10px 0;
+        width: 150px;
     }
-  }
+    .options .btn{
+        height: 50px;
+    }
+    .options div .btn:first-child {
+        margin-bottom: 30px;
+    }
+    .options div .btn:last-child{
+        margin-top: 30px;
+    }
+
+
+}
