@@ -5,6 +5,23 @@ slider.value = 64;
 slider.step = 1;
 let grid = document.getElementById("canvas");
 
+function canvasHeight() {
+	let windowHeight = window.innerHeight;
+    windowHeight -= document.querySelector("div h1").clientHeight;
+	let windowWidth = window.innerWidth;
+    windowWidth -= document.querySelector(".options").clientWidth;
+    
+	if (windowWidth >= windowHeight) {
+		// Landscape orientation
+		grid.style.width = "auto";
+		grid.style.height = `${0.7 * windowHeight}px`;
+	} else {
+		// Portrait orientation
+		grid.style.width = `80vw`;
+		grid.style.height = "auto";
+	}
+}
+
 function invertColor(hex) {
 	if (hex.indexOf("#") === 0) {
 		hex = hex.slice(1);
@@ -36,13 +53,13 @@ function handleClear(e) {
 	}
 }
 function handleSlide(e) {
+    canvasHeight()
 	let size = slider.value;
 	let sizeString = `${size}x${size}`;
 
 	handleClear();
-    grid.style.gridTemplateColumns =  `repeat(${size}, 1fr)`
-	grid.style.gridTemplateColumns =  `repeat(auto-fit, minmax(10px, 1fr));`
-	grid.style.gridTemplateRows =  `repeat(auto-fit, minmax(10px, 1fr));`
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+    grid.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
     grid.style.gridTemplateRows =  `repeat(${size}, 1fr)`
 	let containerWidth = grid.clientWidth;
@@ -53,8 +70,6 @@ function handleSlide(e) {
 	for (let i = 0; i < size ** 2; i++) {
 		let tempDiv = document.createElement("div");
 		tempDiv.classList.add("pixel");
-		tempDiv.style.width = `${pixelWidth}px`;
-		tempDiv.style.height = `${pixelWidth}px`;
 		grid.appendChild(tempDiv);
 	}
 
@@ -84,9 +99,9 @@ function handleColourChange() {
 colourPick.addEventListener("input", handleColourChange);
 
 function randomColour() {
-	let rRed = Math.floor(Math.random() * 255);
-	let rBlue = Math.floor(Math.random() * 255);
-	let rGreen = Math.floor(Math.random() * 255);
+	let rRed = Math.floor(Math.random() * 256);
+	let rBlue = Math.floor(Math.random() * 256);
+	let rGreen = Math.floor(Math.random() * 256);
 	return "#" + rRed.toString(16) + rBlue.toString(16) + rGreen.toString(16);
 }
 
