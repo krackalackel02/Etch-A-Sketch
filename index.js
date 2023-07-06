@@ -92,7 +92,8 @@ function draw(e) {
   });
   
   // Add touch event listeners to the entire grid
-  grid.addEventListener("touchstart", () => {
+  grid.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Prevent default touch behavior
     touchDown = true;
   });
   
