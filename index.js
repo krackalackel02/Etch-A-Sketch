@@ -7,10 +7,10 @@ let grid = document.getElementById("canvas");
 
 function canvasHeight() {
 	let windowHeight = window.innerHeight;
-    windowHeight -= document.querySelector("div h1").clientHeight;
+	windowHeight -= document.querySelector("div h1").clientHeight;
 	let windowWidth = window.innerWidth;
-    windowWidth -= document.querySelector(".options").clientWidth;
-    
+	windowWidth -= document.querySelector(".options").clientWidth;
+
 	if (windowWidth >= windowHeight) {
 		// Landscape orientation
 		grid.style.width = "auto";
@@ -53,33 +53,40 @@ function handleClear(e) {
 	}
 }
 function handleSlide(e) {
-    canvasHeight()
+    canvasHeight();
 	let size = slider.value;
 	let sizeString = `${size}x${size}`;
-
+    
 	handleClear();
-    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`
-    grid.style.gridTemplateRows = `repeat(${size}, 1fr)`
-
-    grid.style.gridTemplateRows =  `repeat(${size}, 1fr)`
+	grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+	grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+    
+	grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 	let containerWidth = grid.clientWidth;
 	let containerHeight = grid.clientHeight;
 	let smallestDimension = Math.min(containerWidth, containerHeight);
 	let pixelWidth = Math.floor(smallestDimension / size);
-
+    
 	for (let i = 0; i < size ** 2; i++) {
-		let tempDiv = document.createElement("div");
+        let tempDiv = document.createElement("div");
 		tempDiv.classList.add("pixel");
 		grid.appendChild(tempDiv);
 	}
-
+    
+    handleBorder();
 	handleColourChange();
 	document.getElementById("grid-size").innerHTML = sizeString;
 }
 
-
-
-
+let borderBtn = document.getElementById("btn-border");
+function handleBorder() {
+	let isColorSelected = borderBtn.classList.contains("selected");
+	for (let pixel of Array.from(document.getElementsByClassName("pixel"))) {
+		isColorSelected
+			? (pixel.style.border = `1px solid ${invertColor(colourPick.value)}`)
+			: (pixel.style.border = "none");
+	}
+}
 
 slider.addEventListener("input", handleSlide);
 
@@ -93,7 +100,6 @@ let colourPick = document.getElementById("colour-picker");
 function handleColourChange() {
 	for (let pixel of Array.from(document.getElementsByClassName("pixel"))) {
 		pixel.style.backgroundColor = colourPick.value;
-		pixel.style.border = `2px solid ${invertColor(colourPick.value)}`;
 	}
 }
 colourPick.addEventListener("input", handleColourChange);
@@ -106,3 +112,31 @@ function randomColour() {
 }
 
 window.addEventListener("resize", handleSlide);
+
+document.querySelectorAll(".btn").forEach((btn) => {
+	btn.addEventListener("click", () => {
+        btn.classList.contains("selected")
+        ? btn.classList.remove("selected")
+        : btn.classList.add("selected");
+        switch (btn.id) {
+            case "btn-border":
+                handleBorder();
+                break;
+            case "btn-colour-select":
+                // handleBorder();
+                break;
+            case "btn-rainbow":
+                // handleBorder();
+                break;
+            case "btn-eraser":
+                // handleBorder();
+                break;
+            case "btn-clear":
+                // handleBorder();
+                break;
+        
+            default:
+                break;
+        }
+	});
+});
