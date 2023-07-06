@@ -69,41 +69,67 @@ function handleColour(mode) {
 	return colour;
 }
 
-// ...
 let mouseDown = false;
+let touchDown = false; // Track the touch status
+let touchIdentifier = null; // Track the touch identifier
+
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
+
 function draw(e) {
-    let pixel = e.target;
-    if (
-      (e.type === "mouseover" && !mouseDown) ||
-      (e.type === "touchmove" && !touchDown)
-    ) {
-      return;
-    }
-    let mode = handleButtonSelect(document.querySelector(".selected"));
-    pixel.style.backgroundColor = handleColour(mode);
+  let pixel = e.target;
+
+  if (
+    (e.type === "mouseover" && !mouseDown) ||
+    (e.type === "touchmove" && e.changedTouches[0].identifier !== touchIdentifier)
+  ) {
+    return;
   }
-  
-  // Add event listeners to each pixel
-  grid.querySelectorAll(".pixel").forEach((pixel) => {
-    pixel.addEventListener("mouseover", draw);
-    pixel.addEventListener("touchmove", draw);
-  });
-  
-  // Add touch event listeners to the entire grid
-  grid.addEventListener("touchstart", (e) => {
-    e.preventDefault(); // Prevent default touch behavior
-    touchDown = true;
-  });
-  grid.addEventListener("touchmove", (e) => {
-    e.preventDefault(); // Prevent default touch behavior
-    touchDown = true;
-  });
-  
-  grid.addEventListener("touchend", () => {
-    touchDown = false;
-  });
+
+  // Replace this code with your drawing logic
+  // ...
+
+  // Example: Set pixel color
+  let mode = handleButtonSelect(document.querySelector(".selected"));
+  pixel.style.backgroundColor = handleColour(mode);
+}
+
+// Add event listeners to each pixel
+grid.querySelectorAll(".pixel").forEach((pixel) => {
+  pixel.addEventListener("mouseover", draw);
+});
+
+// Track touch movements on the grid
+grid.addEventListener("touchmove", (e) => {
+  e.preventDefault(); // Prevent default touch behavior
+
+  if (!touchDown) {
+    return;
+  }
+
+  let touch = e.changedTouches[0];
+  let pixel = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (pixel && pixel.classList.contains("pixel")) {
+    draw({ type: "touchmove", target: pixel });
+  }
+});
+
+// Add touch event listeners to the entire grid
+document.body.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // Prevent default touch behavior
+  touchIdentifier = e.changedTouches[0].identifier;
+  touchDown = true; // Update touch status
+});
+
+document.body.addEventListener("touchend", () => {
+  touchIdentifier = null;
+  touchDown = false; // Reset touch status
+});
+
+// Replace the rest of your code with the provided code
+// ...
+
+
   
 function makeGrid() {
 	let size = slider.value;
