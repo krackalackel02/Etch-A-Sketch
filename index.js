@@ -96,6 +96,10 @@ function draw(e) {
     e.preventDefault(); // Prevent default touch behavior
     touchDown = true;
   });
+  grid.addEventListener("touchmove", (e) => {
+    e.preventDefault(); // Prevent default touch behavior
+    touchDown = true;
+  });
   
   grid.addEventListener("touchend", () => {
     touchDown = false;
